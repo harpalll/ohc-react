@@ -57,6 +57,7 @@ export const Form = () => {
             >
               <label htmlFor={element.name}>{element.name}</label>
               <input
+                id={element.name}
                 className="border p-2"
                 type={element.type}
                 placeholder={element.placeHolder}
