@@ -1,3 +1,4 @@
 import { Form } from "./Form";
+import { Home } from "./Home";
 
-export { Form };
+export { Form, Home };

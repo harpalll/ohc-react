@@ -48,6 +48,7 @@ const elements: FormElement[] = [
 export const Form = () => {
   return (
     <>
+      <h1 className="text-3xl font-bold">Form Assignment</h1>
       <div className="bg-white w-[80vh] shadow-lg">
         <form className="p-2">
           {elements.map((element) => (
