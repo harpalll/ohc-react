@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 enum Type {
   Text = "text",
   Date = "date",
@@ -46,32 +48,73 @@ const elements: FormElement[] = [
 ];
 
 export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
+  const [formElements, setFormElements] = useState<FormElement[]>(elements);
+
+  const addField = () => {
+    setFormElements([
+      ...formElements,
+      {
+        id: Number(new Date()),
+        name: "Text Field",
+        type: Type.Text,
+        label: "Text Field",
+        placeHolder: "Text Field",
+      },
+    ]);
+  };
+
+  const removeField = (id: number) => {
+    setFormElements(formElements.filter((element) => element.id !== id));
+  };
+
   return (
     <>
       <h1 className="text-3xl font-bold">Form Assignment</h1>
       <div className="bg-white w-[80vh] shadow-lg flex flex-col gap-4">
         <form className="p-2">
-          {elements.map((element) => (
-            <div
-              key={element.id}
-              className="flex flex-col gap-2 border rounded-md p-2"
-            >
-              <label htmlFor={element.name}>{element.name}</label>
-              <input
-                id={element.name}
-                className="border p-2"
-                type={element.type}
-                placeholder={element.placeHolder}
-                name={element.name}
-              />
+          {formElements.map((element) => (
+            <div className="flex justify-between items-center gap-3">
+              <div
+                key={element.id}
+                className="flex flex-col gap-2 border rounded-md p-2 flex-1"
+              >
+                <label htmlFor={element.name}>{element.name}</label>
+                <input
+                  id={element.name}
+                  className="border p-2"
+                  type={element.type}
+                  placeholder={element.placeHolder}
+                  name={element.name}
+                />
+              </div>
+
+              <div>
+                <button
+                  type="button"
+                  className="bg-red-700 text-white px-3 py-2 rounded-lg text-center font-bold"
+                  onClick={() => removeField(element.id)}
+                >
+                  Remove Field
+                </button>
+              </div>
             </div>
           ))}
-          <button
-            type="submit"
-            className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
-          >
-            Submit
-          </button>
+
+          <div className="flex gap-4">
+            <button
+              type="submit"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
+              onClick={addField}
+            >
+              Add Field
+            </button>
+          </div>
         </form>
 
         <button
