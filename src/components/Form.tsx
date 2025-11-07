@@ -45,11 +45,11 @@ const elements: FormElement[] = [
   },
 ];
 
-export const Form = () => {
+export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
   return (
     <>
       <h1 className="text-3xl font-bold">Form Assignment</h1>
-      <div className="bg-white w-[80vh] shadow-lg">
+      <div className="bg-white w-[80vh] shadow-lg flex flex-col gap-4">
         <form className="p-2">
           {elements.map((element) => (
             <div
@@ -73,6 +73,13 @@ export const Form = () => {
             Submit
           </button>
         </form>
+
+        <button
+          className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
+          onClick={closeFormCB}
+        >
+          Close Form
+        </button>
       </div>
     </>
   );
