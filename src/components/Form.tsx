@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, ReactEventHandler, useState } from "react";
 
 enum Type {
   Text = "text",
@@ -15,6 +15,7 @@ interface FormElement {
   type: Type;
   label: string;
   placeHolder?: string;
+  value?: string;
 }
 
 const elements: FormElement[] = [
@@ -24,6 +25,7 @@ const elements: FormElement[] = [
     type: Type.Text,
     label: "First Name",
     placeHolder: "John",
+    value: "John",
   },
   {
     id: 2,
@@ -31,6 +33,7 @@ const elements: FormElement[] = [
     type: Type.Text,
     label: "Last Name",
     placeHolder: "Doe",
+    value: "Doe",
   },
   {
     id: 3,
@@ -38,12 +41,14 @@ const elements: FormElement[] = [
     type: Type.Email,
     label: "Email",
     placeHolder: "johnDoe@mail.com",
+    value: "johnDoe@mail.com",
   },
   {
     id: 4,
     name: "Date of Birth",
     type: Type.Date,
     label: "Date of Birth",
+    value: "11-08-2025",
   },
 ];
 
@@ -60,6 +65,7 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
         type: Type.Text,
         label: newField,
         placeHolder: newField,
+        value: newField,
       },
     ]);
     setNewField("");
@@ -67,6 +73,13 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
 
   const removeField = (id: number) => {
     setFormElements(formElements.filter((element) => element.id !== id));
+  };
+
+  const clearForm = () => setFormElements([]);
+
+  const submitForm: ReactEventHandler = (e: FormEvent) => {
+    e.preventDefault();
+    formElements.map((element) => console.log(element.value));
   };
 
   return (
@@ -77,7 +90,7 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
           {formElements.map((element) => (
             <div className="flex justify-between items-center gap-3">
               <div
-                key={element.id}
+                key={element.id + 1}
                 className="flex flex-col gap-2 border rounded-md p-2 flex-1"
               >
                 <label htmlFor={element.name}>{element.name}</label>
@@ -114,21 +127,29 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
             <button
               type="button"
               disabled={newField === ""}
-              className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold disabled:bg-gray-500"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg text-center font-bold disabled:bg-gray-500"
               onClick={addField}
             >
               Add Field
             </button>
           </div>
 
-          {/* <div className="flex gap-4"> */}
-          <button
-            type="submit"
-            className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
-          >
-            Submit
-          </button>
-          {/* </div> */}
+          <div className="flex gap-4 items-center">
+            <button
+              type="submit"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
+              onClick={submitForm}
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              className="bg-red-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
+              onClick={clearForm}
+            >
+              Clear Form
+            </button>
+          </div>
         </form>
 
         <button

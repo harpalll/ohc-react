@@ -19,10 +19,6 @@ function App() {
     setView(views.HOME);
   };
 
-  useEffect(() => {
-    console.log("rerender - App");
-  }, []);
-
   return (
     <Layout>
       <main className="flex items-center justify-center p-2 flex-col gap-4">
