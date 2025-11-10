@@ -1,4 +1,4 @@
-export const Home = ({ openFormCB }: { openFormCB: () => void }) => {
+export const Home = ({ openFormsCB }: { openFormsCB: () => void }) => {
   return (
     <>
       <h1 className="text-3xl font-bold p-2">Home</h1>
@@ -8,9 +8,9 @@ export const Home = ({ openFormCB }: { openFormCB: () => void }) => {
 
       <button
         className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
-        onClick={openFormCB}
+        onClick={openFormsCB}
       >
-        Open Form
+        Open Forms
       </button>
     </>
   );

@@ -77,9 +77,38 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
 
   const clearForm = () => setFormElements([]);
 
-  const submitForm: ReactEventHandler = (e: FormEvent) => {
+  const saveForm: ReactEventHandler = (e: FormEvent) => {
     e.preventDefault();
-    formElements.map((element) => console.log(element.value));
+    // const forms = JSON.parse(localStorage.getItem("forms") || "");
+    // console.log(forms);
+    const forms = [
+      { id: 1, title: "form1", elementsForm: [...formElements] },
+      {
+        id: 2,
+        title: "form2",
+        elementsForm: [
+          {
+            id: 1,
+            name: "First Name",
+            type: Type.Text,
+            label: "First Name",
+            placeHolder: "John",
+            value: "John",
+          },
+          {
+            id: 2,
+            name: "Last Name",
+            type: Type.Text,
+            label: "Last Name",
+            placeHolder: "Doe",
+            value: "Doe",
+          },
+        ],
+      },
+    ];
+    console.log(forms);
+
+    localStorage.setItem("forms", JSON.stringify(forms));
   };
 
   return (
@@ -138,9 +167,9 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
             <button
               type="submit"
               className="bg-blue-700 text-white px-4 py-2 rounded-lg mt-4 text-center font-bold"
-              onClick={submitForm}
+              onClick={saveForm}
             >
-              Submit
+              Save Form
             </button>
             <button
               type="button"
