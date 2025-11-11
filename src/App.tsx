@@ -11,7 +11,7 @@ const views = {
 type View = (typeof views)[keyof typeof views];
 
 function App() {
-  const [view, setView] = useState<View>(views.FORMS);
+  const [view, setView] = useState<View>(views.HOME);
 
   const openForm = () => {
     setView(views.FORM);
