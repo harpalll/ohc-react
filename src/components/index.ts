@@ -1,5 +1,6 @@
 import { Form } from "./Form";
-import Forms from "./Forms";
+import { FormLS } from "./FormLS";
+import { Forms } from "./Forms";
 import { Home } from "./Home";
 
-export { Form, Forms, Home };
+export { Form, Forms, Home, FormLS };

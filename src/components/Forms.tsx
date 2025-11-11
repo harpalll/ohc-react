@@ -24,7 +24,13 @@ interface Form {
   elementsForm: FormElement[];
 }
 
-const Forms = ({ openFormCB }: { openFormCB: () => void }) => {
+export const Forms = ({
+  openFormCB,
+  openFormLSCB,
+}: {
+  openFormCB: () => void;
+  openFormLSCB: (id: number) => void;
+}) => {
   const [forms, setForms] = useState<Form[]>([]);
   useEffect(() => {
     try {
@@ -38,6 +44,7 @@ const Forms = ({ openFormCB }: { openFormCB: () => void }) => {
       setForms([]);
     }
   }, []);
+
   return (
     <div className="p-2 w-full">
       <h1 className="font-sans font-bold text-3xl p-2">Forms</h1>
@@ -72,7 +79,7 @@ const Forms = ({ openFormCB }: { openFormCB: () => void }) => {
                     <button
                       type="submit"
                       className="bg-blue-700 text-white px-2 py-2 rounded-lg text-center font-bold text-xs"
-                      onClick={openFormCB}
+                      onClick={() => openFormLSCB(form.id)}
                     >
                       View Form
                     </button>
@@ -92,5 +99,3 @@ const Forms = ({ openFormCB }: { openFormCB: () => void }) => {
     </div>
   );
 };
-
-export default Forms;
