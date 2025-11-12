@@ -71,7 +71,7 @@ export const Forms = ({
           </thead>
           <tbody className="text-center">
             {forms.map((form) => (
-              <tr key={form.id}>
+              <tr key={form.id + 1}>
                 <td>{form.id}</td>
                 <td>{form.title}</td>
                 <td>

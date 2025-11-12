@@ -36,7 +36,9 @@ function App() {
   return (
     <Layout>
       <main className="flex items-center justify-center p-2 flex-col gap-4">
-        {view === views.HOME && <Home openFormsCB={openForms} />}
+        {view === views.HOME && (
+          <Home openFormCB={openForm} openFormsCB={openForms} />
+        )}
         {view === views.FORM && <Form closeFormCB={closeForm} />}
         {view === views.FORMS && (
           <Forms openFormLSCB={openFormLS} openFormCB={openForm} />

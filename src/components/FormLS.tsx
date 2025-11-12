@@ -75,8 +75,7 @@ export const FormLS = ({
         const forms = JSON.parse(localStorage.getItem("forms") || "");
         const form = forms.filter((form: Form) => form.id === id);
         setForm(form);
-        setFormElements(form.elementsForm);
-        console.log(form, formElements);
+        setFormElements(form[0].elementsForm);
       };
       fetchFormFromLocalStorage();
     } catch (error) {
@@ -106,6 +105,7 @@ export const FormLS = ({
 
   const clearForm = () => setFormElements([]);
 
+  //#region SaveForm
   const saveForm: ReactEventHandler = (e: FormEvent) => {
     e.preventDefault();
     // const forms = JSON.parse(localStorage.getItem("forms") || "");
@@ -139,18 +139,19 @@ export const FormLS = ({
 
     localStorage.setItem("forms", JSON.stringify(forms));
   };
+  //#endregion
 
   return (
     <>
       <h1 className="text-3xl font-bold">Form Assignment</h1>
-      <div className="bg-white w-[80vh] shadow-lg flex flex-col gap-4">
-        <form className="p-2 ">
+      <div className="bg-white w-[80vh] shadow-lg flex flex-col gap-4 p-2">
+        <form className="p-2">
           {formElements.map((element) => (
-            <div className="flex justify-between items-center gap-3">
-              <div
-                key={element.id + 1}
-                className="flex flex-col gap-2 border rounded-md p-2 flex-1"
-              >
+            <div
+              className="flex justify-between items-center gap-3"
+              key={element.id + 1}
+            >
+              <div className="flex flex-col gap-2 border rounded-md p-2 flex-1">
                 <label htmlFor={element.name}>{element.name}</label>
                 <input
                   id={element.name}
@@ -172,9 +173,10 @@ export const FormLS = ({
               </div>
             </div>
           ))}
+
           <hr className="mt-2" />
 
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between gap-3 mt-2">
             <input
               placeholder="label for new field"
               type="text"
@@ -185,7 +187,7 @@ export const FormLS = ({
             <button
               type="button"
               disabled={newField === ""}
-              className="bg-blue-700 text-white px-4 py-2 rounded-lg text-center font-bold disabled:bg-gray-500"
+              className="bg-blue-700 text-white px-4 py-2 rounded-lg text-center font-bold disabled:bg-gray-500 disabled:cursor-not-allowed"
               onClick={addField}
             >
               Add Field

@@ -77,38 +77,49 @@ export const Form = ({ closeFormCB }: { closeFormCB: () => void }) => {
 
   const clearForm = () => setFormElements([]);
 
-  const saveForm: ReactEventHandler = (e: FormEvent) => {
+  const saveForm: ReactEventHandler = async (e: FormEvent) => {
     e.preventDefault();
-    // const forms = JSON.parse(localStorage.getItem("forms") || "");
-    // console.log(forms);
-    const forms = [
-      { id: 1, title: "form1", elementsForm: [...formElements] },
+    let forms;
+    try {
+      forms = await JSON.parse(localStorage.getItem("forms") || "");
+    } catch (error) {
+      console.log("error: ", error);
+      forms = [];
+    }
+    // const forms = [
+    //   { id: 1, title: "form1", elementsForm: [...formElements] },
+    //   {
+    //     id: 2,
+    //     title: "form2",
+    //     elementsForm: [
+    //       {
+    //         id: 1,
+    //         name: "First Name",
+    //         type: Type.Text,
+    //         label: "First Name",
+    //         placeHolder: "John",
+    //         value: "John",
+    //       },
+    //       {
+    //         id: 2,
+    //         name: "Last Name",
+    //         type: Type.Text,
+    //         label: "Last Name",
+    //         placeHolder: "Doe",
+    //         value: "Doe",
+    //       },
+    //     ],
+    //   },
+    // ];
+    const newForms = [
+      ...forms,
       {
-        id: 2,
-        title: "form2",
-        elementsForm: [
-          {
-            id: 1,
-            name: "First Name",
-            type: Type.Text,
-            label: "First Name",
-            placeHolder: "John",
-            value: "John",
-          },
-          {
-            id: 2,
-            name: "Last Name",
-            type: Type.Text,
-            label: "Last Name",
-            placeHolder: "Doe",
-            value: "Doe",
-          },
-        ],
+        id: Number(new Date()),
+        title: "demo",
+        elementsForm: formElements,
       },
     ];
-    console.log(forms);
-
-    localStorage.setItem("forms", JSON.stringify(forms));
+    localStorage.setItem("forms", JSON.stringify(newForms));
   };
 
   return (
